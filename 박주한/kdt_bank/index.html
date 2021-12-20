@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kdt_bank</title>
+
+  <link rel="stylesheet" href="./css/common.css" />
+  <link rel="stylesheet" href="./css/main.css" />
+  <script defer src="./js/main.js"></script>
+  <script defer src="./js/drag.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<body>
+
+<!-- 인디게이터 영역 -->
+<div class="indi">
+  <img src="./images/indicator.png" alt="indicator">
+</div>
+
+<!-- 컨텐츠 영역 -->
+<div class="home">
+  <section>
+    <!-- 헤더 -->
+    <header>
+      <div class="inner">
+        <div class="avata">
+          <a href="#">
+            <img src="./images/img_avata.png" alt="avata" />
+          </a>
+        </div>
+        <h3>생활비</h3>
+        <ul class="btn_wrap">
+          <li>
+            <a href="#" class="scan"></a>
+          </li>
+          <li>
+            <a href="#" class="search"></a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- 계좌상태 -->
+    <div class="account_info">
+      <!-- 계좌정보 -->
+      <ul class="info">
+        <!-- 계좌번호 -->
+        <li class="num">
+          <strong>355-673877-78773</strong>
+          <a href="#">이체</a>
+        </li>
+        <!-- 금액 -->
+        <li class="cash">
+          1,240,000<span>원</span>
+        </li>
+        <!-- 그래프 -->
+        <li class="graph">
+          <ul>
+            <li>
+              <!-- <div class="bar_graph"> -->
+                <div class="bar">
+                  <div class="bar_color">
+                    <div class="goal"></div>
+                  </div>
+                </div>
+              <!-- </div> -->
+            </li>
+            <li>
+              <a href="#" class="btn_graph"></a>
+            </li>
+          </ul>
+        </li>
+        <!-- 텍스트 정보 -->
+        <li class="noti">
+          <span class="date">5</span>일 동안 <span class="cash">210,000</span>원 남음
+        </li>
+      </ul>
+
+      <!-- 광고영역 -->
+      <a href="#" class="adv">
+        지금 낮은 이자로 생활대출을 신청하세요! <strong>Go</strong>
+      </a>      
+    </div>
+
+    <!-- 히스토리 -->
+    <div class="account_history">
+      <!-- 드래그 바 -->
+      <!-- <div class="drag_area"> -->
+        <span class="drag_bar"></span>
+      <!-- </div> -->
+      <!-- 저금통 리스트 -->
+      <div class="save_list">
+        <div class="scroll_area">
+          <!-- <ul>
+            <li>
+              <div class="save_item">
+                <div class="title">
+                  <h4>여행가자</h4>
+                  <strong>842,200원</strong>
+                </div>
+                <div class="color orange"></div>
+              </div>
+            </li>
+            <li>
+              <div class="save_item">
+                <div class="title">
+                  <h4>여행가자</h4>
+                  <strong>842,200원</strong>
+                </div>
+                <div class="color yellow"></div>
+              </div>
+            </li>
+          </ul> -->
+        <a href="#">
+          <span class="material-icons">add_circle</span>
+          <strong>저금통 만들기</strong>
+        </a>
+      </div>
+      </div>
+      <!-- 최근 히스토리 -->
+      <ul class="recent">
+        <li>
+          <!-- 최근 히스토리 날짜/합계 -->
+          <div class="recent_tit">
+            <h4>오늘</h4>
+            <strong>127,600원 지출</strong>
+          </div>
+          <ul class="recent_list">
+            <li>미스터피자 <strong>32,000</strong></li>
+            <li>택시 <strong>4,800</strong></li>
+            <li>이마트 <strong>86,000</strong></li>
+            <li>스타벅스 <strong>4,800</strong></li>
+            <li>전길수 <strong class="orange">+20000</strong></li>
+          </ul>
+        </li>
+        <li>
+          <div class="recent_tit">
+            <h4>어제</h4>
+            <strong>71,600원 지출</strong>
+          </div>
+          <ul class="recent_list">
+            <li>CU <strong>8,900</strong></li>
+            <li>김경남 <strong class="orange">+31,000</strong></li>
+            <li>애슐리 <strong>31,000</strong></li>
+            <li>교보문고 <strong>18,000</strong></li>
+            <li>쿠팡 <strong>10,500</strong></li>
+            <li>미스터피자 <strong>32,000</strong></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+   
+  </section>  
+</div>
+
+<!-- 네비게이션 영역 -->
+<nav>
+  <ul>
+    <li><a href="#" class="menu1">메뉴1</a></li>
+    <li><a href="#" class="menu2">메뉴2</a></li>
+    <li><a href="#" class="menu3">메뉴3</a></li>
+    <li><a href="#" class="menu4">메뉴4</a></li>
+  </ul>
+</nav>
+
+
+
+
+
+</body>
+</html>
