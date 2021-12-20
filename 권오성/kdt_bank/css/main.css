@@ -1,0 +1,261 @@
+/* COMMOM */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+a {
+  text-decoration: none;
+  display: block;
+  color: #000;
+}
+img {
+  display: block;
+}
+.home section{
+  background-color: #EEEBE5;
+  position: relative;
+  padding-top: 44px;
+  height: calc(100vh - 44px);
+  /* overflow: hidden; */
+}
+
+
+/* 상단바 */
+body>div:first-child {
+  position: fixed;
+  top: 0;
+  height: 44px;
+  z-index: 1;
+}
+
+
+/* 헤더 */
+header {
+  height: 43px;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+header .avata {
+  margin-left: 27px;
+}
+header h3 {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 auto;
+}
+header ul {
+  width: 66px;
+  display: flex;
+  align-content: center;
+}
+header ul li {
+}
+header ul li a {
+  width: 30px;
+  height: 30px;
+}
+
+
+
+/* 계좌 정보 영역 */
+.account_status {
+  /* background-color: orange; */
+  padding: 33px 48px 24px;
+}
+
+.account_status .account_info {
+  background-color: #fff;
+  height: 155px;
+  border-radius: 12px;
+  position: relative;
+}
+.account_status .account_info li {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  padding: 10px 0;
+}
+.account_status .account_info li.num {
+}
+.account_status .account_info li.num a {
+  position: absolute;
+  right: 17px;
+}
+.account_status .account_info li.cash {
+  font-size: 24px;
+  font-weight: 700;
+}
+.account_status .account_info li.cash span {
+  font-size: 14px;
+}
+.account_status .account_info li .graph {
+  width: 202px; 
+  height: 6px;
+  margin: auto 0;
+  position: relative;
+}
+.account_status .account_info li .graph .goal {
+  width: 4px;
+  height: 17px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  background-color: #FF5F00;
+  position: absolute;
+  left: calc(40% - 4px);
+  top: calc(-100%);
+}
+.account_status .account_info li .graph .bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: #C4C4C4;
+}
+.account_status .account_info li .graph .bar_color {
+  width: 40%;
+  height: 6px;
+  background-color: #FFDB4C;
+}
+.account_status .adv {
+  font-size: 14px;
+  margin-top: 24px;
+}
+
+
+/* 계좌 내역 영역 */
+.account_history {
+  width: 100%;
+  background-color: #F5F5F5;
+  position: absolute;
+  top: 353px;
+  bottom: 0;
+  border-radius: 30px 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: .5s;
+}
+.account_history.expand {
+  top: 100px;
+}
+.account_history .drag_bar {
+  padding: 10px 10px;
+  top: -6px;
+  position: absolute;
+}
+.account_history .drag_bar>div {
+  width: 48px;
+  height: 2.15px;
+  border-radius: 50%;
+  background-color: #C4C4C4;
+}
+.account_history .save_list {
+  width: calc(100vw - 60px);
+  margin-top: 25px;
+  display: flex;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.account_history .save_list::-webkit-scrollbar {
+  display: none;
+}
+.account_history .save_list .save_item {
+  display: flex;
+}
+.account_history .save_list .save_item li {
+  width: 162px;
+  height: 47px;
+  background-color: #DADADA;
+  border-radius: 6px;
+  margin-right: 16px;
+  overflow: hidden;
+}
+.account_history .save_list .save_item li div {
+  font-size: 12px;
+  color: #fff;
+  font-weight: 300;
+  line-height: 17px;
+}
+.account_history .save_list .save_item li:first-child div {
+  width: 60%;
+  height: 100%;
+  background-color: #FF5F00;
+}
+.account_history .save_list .save_item li:nth-child(2) div {
+  width: 70%;
+  height: 100%;
+  background-color: #FEB700;
+}
+.account_history .save_list .save_item li div p, 
+.account_history .save_list .save_item li div span {
+  margin-left: 13px;
+}
+.account_history .save_list .create_save {
+  display: flex;
+  align-items: center;
+  color: #FF5F00;
+}
+.account_history .save_list .create_save span {
+  font-size: 24px;
+}
+.account_history .save_list .create_save p {
+  margin-left: 7px;
+  font-size: 12px;
+}
+
+
+
+/* 사용 내역 */
+.recent {
+  width: calc(100vw - 60px);
+  overflow-y: scroll;
+  position: absolute;
+  top: 90px;
+  bottom: 0;
+}
+.recent::-webkit-scrollbar {
+  display: none;
+}
+.recent>li {
+  margin-bottom: 38px;
+}
+.recent>li .recent_tit {
+  height: 21px;
+  font-size: 14px;
+}
+.recent>li .recent_tit span {
+  color: #B4B4B4;
+  float: right;
+}
+.recent>li .recent_list {
+  font-size: 18px;
+  font-weight: 300;
+}
+.recent>li .recent_list li {
+  height: 34px;
+  margin-top: 8px;
+  border-bottom: 1px solid #DCDCDC;
+  box-sizing: border-box;
+}
+.recent>li .recent_list li span {
+  float: right;
+}
+
+
+/* 하단 버튼 영영 */
+nav {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #16C2B3;
+}
+nav ul{
+  height: 76px;
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+}
+nav ul li {
+  margin: 0 auto;
+}
