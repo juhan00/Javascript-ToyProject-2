@@ -24,14 +24,15 @@
 
   //드래그 시작
   function dragStart(e) {
-    console.log(`드래그:${e.type}`);
+    
     activeItem = container;  
-    //activeItem.style.transition = 'none';  
 
     if (e.target === dragItem) {
       active = true;    
     }
 
+    console.log(`드래그:${e.type}`);
+    
     if (activeItem !== null) {
 
       //타겟 세로 위치 0
@@ -87,21 +88,23 @@
   
   //드래그 끝
   function dragEnd(e) {
-    console.log(`드래그끝:${e.type}`);
+    if (active) {
+      console.log(`드래그끝:${e.type}`);
 
-    if(currentY > -(itemDrageHeight/2)){//드래그 영역 1/2 아래일 경우
-      yOffset = 0;
-      moveMotion(true);
-      setTranslate(activeItem, 0 , 'close'); 
-    }else{//드래그 영역 1/2 이상일 경우
-      if(yOffset !== 0){
-        yOffset = -250;
+      if(currentY > -(itemDrageHeight/2)){//드래그 영역 1/2 아래일 경우
+        yOffset = 0;
         moveMotion(true);
-        setTranslate(activeItem, 0 , 'open'); 
-      }   
-    }
+        setTranslate(activeItem, 0 , 'close'); 
+      }else{//드래그 영역 1/2 이상일 경우
+        if(yOffset !== 0){
+          yOffset = -250;
+          moveMotion(true);
+          setTranslate(activeItem, 0 , 'open'); 
+        }   
+      }
 
-    activeOff();
+      activeOff();
+    }
   }
 
   //드래그 모션

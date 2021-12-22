@@ -12,19 +12,24 @@ class SetAccount{
   }
 
   //콤마 추가
-  accountCashAddComma(str){
-    return this.accountCash.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
+  accountCashAddComma(data){
+    const str = `${data}`;
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
   }
 
-  //이번달 남은 일수 계산하기
-  dayLeft(){
+  setDate(){
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
-    const totalDay = new Date(year,month,0).getDate();
+    const setDate = {day:day, month:month, year:year, date:date}
+    return setDate;
+  }
 
-    return totalDay - day;
+  //이번달 남은 일수 계산하기
+  dayLeft(){
+    const totalDay = new Date(this.setDate().year,this.setDate().month,0).getDate();
+    return totalDay - this.setDate().day;
   }
   //이번달 남은 돈
   cashLeft(){
@@ -38,14 +43,81 @@ class SetAccount{
   saveAmount(saveGoal, saveCash){
     return (saveCash/saveGoal) * 100;
   }
+
+  //recent 날짜 역순 정렬
+  recentReverse(){
+    let sortAccountHistory = this.accountHistory.sort((a, b) => {
+      return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+    });
+
+    return sortAccountHistory;
+  }
+
+  //recent 날자별 지출
+  sumDateUseCash(date){
+    const dayHistoryList = this.accountHistory.filter(arr => {
+      return arr.date === date;
+    });
+
+    let sumUseCash = 0;
+
+    dayHistoryList.forEach(arr => {
+      if(arr.income === 'out'){
+        sumUseCash += arr.price;
+      }   
+    });  
+    return this.accountCashAddComma(sumUseCash);
+  }
+
+  //지출 income 체크
+  checkIncome(cash, income){
+    if(income === 'in'){
+      return `<strong class="orange">+${cash}</strong>`;
+    }else{
+      return `<strong>${cash}</strong>`;
+    }
+  }
+
+  //몇일전 표시
+  changeDayAgo(date){
+    function setDays(date, days) { 
+      const clone = new Date(date); 
+      clone.setDate(date.getDate() + days); 
+      return clone; 
+    }
+    const today = new Date();
+    const daysAgo0 = setDays(today, 0).toISOString().split("T")[0];
+    const daysAgo1 = setDays(today, -1).toISOString().split("T")[0];
+    const daysAgo2 = setDays(today, -2).toISOString().split("T")[0];
+    const daysAgo3 = setDays(today, -3).toISOString().split("T")[0];
+    const daysAgo4 = setDays(today, -4).toISOString().split("T")[0];
+    const daysAgo5 = setDays(today, -5).toISOString().split("T")[0];
+
+    if(daysAgo0 === date){
+      return '오늘';
+    }else if(daysAgo1 === date){
+      return '어제';
+    }else if(daysAgo2 === date){
+      return '2일전';
+    }else if(daysAgo3 === date){
+      return '3일전';
+    }else if(daysAgo4 === date){
+      return '4일전';
+    }else if(daysAgo5 === date){
+      return '5일전';
+    }else{
+      return date;
+    }  
+  }
+
 }
 
-//json 데이터 가져오기 로컬
+// // json 데이터 가져오기 로컬
 // fetch('../json/accounts.json')
 //   .then(res => res.json())
 //   .then(obj => {setMain(obj)});
 
-//json 데이터 가져오기 서버
+// json 데이터 가져오기 서버
 fetch('https://05castle.github.io/team-study/accounts.json')
   .then(res => res.json())
   .then(obj => {setMain(obj)});
@@ -82,39 +154,93 @@ function setMain(obj){
 
     accountNameEl.innerText = accountList[i].accountName; 
     accountNumEl.innerText = accountList[i].accountNum; 
-    accountCashEl.innerHTML = `${accountList[i].accountCashAddComma()}<span>원</span>`; 
+    accountCashEl.innerHTML = `${accountList[i].accountCashAddComma(accountList[i].accountCash)}<span>원</span>`; 
     notiDateEl.innerText = accountList[i].dayLeft(); 
     notiCashEl.innerText = accountList[i].cashLeft(); 
     barColorEl.style.width = `${accountList[i].cashAmount()}%`; 
     barColorEl.style.backgroundColor = accountList[i].useColor; 
 
+
+
+
     //히스토리 영역
     const historyEl = currentSectionEl.querySelector('.account_history');
+    
+
+    //저금통 영역
     const saveItemAreaEl = currentSectionEl.querySelector('.save_list .scroll_area');
     const saveItemUlEl = document.createElement('ul');//저금통 ul 생성
     saveItemAreaEl.insertBefore(saveItemUlEl, saveItemAreaEl.firstChild);//저금통 ul 버튼앞에 넣기
     
-    for (let k = 0; k < accountList[i].saveList.length; k++){//저금통 개수만큼 실행
+    const saveList = accountList[i].saveList;
+    
+    saveList.forEach(item => {
       const saveItemliEl = document.createElement('li');//저금통 ul 생성
       saveItemUlEl.appendChild(saveItemliEl);//저금통 li 넣기
-      
-      const saveTitle = accountList[i].saveList[k].title;
-      const saveGoal = accountList[i].saveList[k].saveGoal;
-      const saveCash = accountList[i].saveList[k].saveCash;
-      const saveColor = accountList[i].saveList[k].color;
+      const saveTitle = item.title;
+      const saveGoal = item.saveGoal;
+      const saveCash = item.saveCash;
+      const saveColor = item.color;
       const saveAmount = accountList[i].saveAmount(saveGoal, saveCash);
 
       const saveItemHtml = 
-      `<div class="save_item">
+      `
+      <div class="save_item">
         <div class="title">
           <h4>${saveTitle}</h4>
-          <strong>${saveCash}</strong>
+          <strong>${accountList[i].accountCashAddComma(saveCash)}</strong>
         </div>
         <div class="color" style="background-color:${saveColor};width:${saveAmount}%;"></div>
-      </div>`;//저금통 html'
+      </div>
+      `;//저금통 html'
 
       saveItemliEl.innerHTML = saveItemHtml;//저금통 li에 html 넣기 
-    }
+    });
+
+
+    //recent 영역
+    const recentUlEl = document.createElement('ul');//recent ul 생성
+    recentUlEl.classList.add('recent');
+    historyEl.appendChild(recentUlEl);//히스토리에 recent ul 넣기
+    
+
+    let sortAccountHistory = accountList[i].recentReverse();//데이터 역순 정렬 받아오기
+    let historyDate = null;
+    let dateIndex = 0;
+
+    sortAccountHistory.forEach(item => {
+  
+      if(historyDate !== item.date){//현재 배열 날짜가 historyDate와 같지 안을때    
+        const recentLiEl = document.createElement('li');//recent li 생성
+        recentUlEl.appendChild(recentLiEl);//recent ul에 li 넣기
+
+        const recentTitEl = document.createElement('div');//recent title div생성
+        recentTitEl.classList.add('recent_tit');
+        recentLiEl.appendChild(recentTitEl);
+        const recentTitHtml =
+        `
+          <h4>${accountList[i].changeDayAgo(item.date)}</h4>
+          <strong>${accountList[i].sumDateUseCash(item.date)}원 지출</strong>
+        `;
+        recentTitEl.innerHTML = recentTitHtml;//recent title 넣기
+
+        const recentInnerUlEl = document.createElement('ul');//recent inner ul 생성
+        recentInnerUlEl.classList.add('recent_list');
+        recentLiEl.appendChild(recentInnerUlEl);//recent li에 inner ul 넣기
+        const recentInnerLiEl = document.createElement('li');//recent inner li 생성   
+        recentInnerUlEl.appendChild(recentInnerLiEl);//recent inner ul에 inner li 넣기
+        recentInnerLiEl.innerHTML = `${item.history} ${accountList[i].checkIncome(item.price, item.income)}`;  
+
+        dateIndex = dateIndex + 1;
+      }else{          
+        const recentInnerLiEl = document.createElement('li');//recent inner li 생성   
+        const recentInnerUlEl = currentSectionEl.querySelector(`.recent li:nth-child(${dateIndex}) .recent_list`);      
+        recentInnerUlEl.appendChild(recentInnerLiEl);//recent inner ul에 inner li 넣기
+        recentInnerLiEl.innerHTML = `${item.history} ${accountList[i].checkIncome(item.price, item.income)}`;//inner li에 데이터 넣기
+      }    
+      historyDate = item.date; //historyDate에 현재 배열 날짜 넣기
+      
+    });
 
   }
 }
