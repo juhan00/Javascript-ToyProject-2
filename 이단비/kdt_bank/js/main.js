@@ -12,3 +12,4 @@ fetch("https://05castle.github.io/team-study/accounts.json")
   .then(obj => { start(obj) });
 
   function start(){}
+  // 고치기
