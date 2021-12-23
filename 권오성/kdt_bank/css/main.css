@@ -73,6 +73,7 @@ header ul li a {
 .account_status .account_info li {
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   font-size: 14px;
   padding: 10px 0;
 }
@@ -176,17 +177,17 @@ header ul li a {
   color: #fff;
   font-weight: 300;
   line-height: 17px;
-}
-.account_history .save_list .save_item li:first-child div {
-  width: 60%;
   height: 100%;
+}
+/* .account_history .save_list .save_item li:first-child div {
+  width: 60%;
   background-color: #FF5F00;
 }
 .account_history .save_list .save_item li:nth-child(2) div {
   width: 70%;
   height: 100%;
   background-color: #FEB700;
-}
+} */
 .account_history .save_list .save_item li div p, 
 .account_history .save_list .save_item li div span {
   margin-left: 13px;
