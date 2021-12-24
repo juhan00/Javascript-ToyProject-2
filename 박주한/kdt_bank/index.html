@@ -10,19 +10,16 @@
   <link rel="stylesheet" href="./css/main.css" />
   <link rel="stylesheet" href="./css/kslider.css" />
 
-  <script defer src="./js/drag.js"></script>
   <script defer src="./js/kslider.js"></script>
   <script defer src="./js/main.js"></script>
+  <script defer src="./js/drag.js"></script>
  
-
-  
-
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 
 <!-- 인디게이터 영역 -->
-<div class="indi">
+<div class="status_bar">
   <img src="./images/indicator.png" alt="indicator">
 </div>
 
@@ -49,26 +46,22 @@
       </div>
     </header>
 
-    <!-- 계좌상태 -->
+    <!-- 계좌정보 -->
     <div class="account_info">
-      <!-- 계좌정보 -->
       <ul class="info">
-        <!-- 계좌번호 -->
         <li class="num">
           <strong>355-673877-78773</strong>
           <a href="#">이체</a>
         </li>
-        <!-- 금액 -->
         <li class="cash">
           1,240,000<span>원</span>
         </li>
-        <!-- 그래프 -->
         <li class="graph">
           <ul>
             <li>
               <div class="bar">
                 <div class="bar_color">
-                  <div class="goal"></div>
+                  <div class="use_cash"></div>
                 </div>
               </div>
             </li>
@@ -77,7 +70,6 @@
             </li>
           </ul>
         </li>
-        <!-- 텍스트 정보 -->
         <li class="noti">
           <span class="date">5</span>일 동안 <span class="cash">210,000</span>원 남음
         </li>
@@ -93,73 +85,23 @@
 
     <!-- 히스토리 -->
     <div class="account_history">
-      <!-- 드래그 바 -->
       <span class="drag_bar"></span>
-      <!-- 저금통 리스트 -->
       <div class="save_list">
         <div class="scroll_area">
-          <!-- <ul>
-            <li>
-              <div class="save_item">
-                <div class="title">
-                  <h4>여행가자</h4>
-                  <strong>842,200원</strong>
-                </div>
-                <div class="color orange"></div>
-              </div>
-            </li>
-            <li>
-              <div class="save_item">
-                <div class="title">
-                  <h4>여행가자</h4>
-                  <strong>842,200원</strong>
-                </div>
-                <div class="color yellow"></div>
-              </div>
-            </li>
-          </ul> -->
+          <!-- 저금통 리스트 영역 -->
         <a href="#">
           <span class="material-icons">add_circle</span>
           <strong>저금통 만들기</strong>
         </a>
       </div>
       </div>
-      <!-- 최근 히스토리 -->
-      <!-- <ul class="recent">
-        <li>
-          <div class="recent_tit">
-            <h4>오늘</h4>
-            <strong>127,600원 지출</strong>
-          </div>
-          <ul class="recent_list">
-            <li>미스터피자 <strong>32,000</strong></li>
-            <li>택시 <strong>4,800</strong></li>
-            <li>이마트 <strong>86,000</strong></li>
-            <li>스타벅스 <strong>4,800</strong></li>
-            <li>전길수 <strong class="orange">+20000</strong></li>
-          </ul>
-        </li>
-        <li>
-          <div class="recent_tit">
-            <h4>어제</h4>
-            <strong>71,600원 지출</strong>
-          </div>
-          <ul class="recent_list">
-            <li>CU <strong>8,900</strong></li>
-            <li>김경남 <strong class="orange">+31,000</strong></li>
-            <li>애슐리 <strong>31,000</strong></li>
-            <li>교보문고 <strong>18,000</strong></li>
-            <li>쿠팡 <strong>10,500</strong></li>
-            <li>미스터피자 <strong>32,000</strong></li>
-          </ul>
-        </li>
-      </ul> -->
+      <!-- 최근 히스토리 영역 -->
     </div>
    
   </section>  
 </div>
 
-<!-- 네비게이션 영역 -->
+<!-- 네비게이션 -->
 <nav>
   <ul>
     <li><a href="#" class="menu1">메뉴1</a></li>

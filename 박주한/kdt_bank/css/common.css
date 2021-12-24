@@ -21,8 +21,8 @@ a {text-decoration:none;}
 
 
 /* 인디게이터 영역 */
-.indi{position:fixed;width:100%;font-size:0;z-index:99;}
-.indi img{width:100%;height:44px;}
+.status_bar{position:fixed;width:100%;font-size:0;z-index:99;}
+.status_bar img{width:100%;height:44px;}
 
 /* 네비게이션 영역 */
 nav{position:fixed;bottom:0;width:100%;height:76px;background: linear-gradient(163.63deg, #00BDB2 11.35%, #C4E7B8 139.96%);z-index:99;}
