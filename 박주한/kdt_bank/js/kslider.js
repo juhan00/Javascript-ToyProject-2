@@ -28,7 +28,7 @@ const kSlider = function(target, option) {
     nextA.href = '';
     moveButton.appendChild(prevA);
     moveButton.appendChild(nextA);
-    kindWrap.appendChild(moveButton);
+    // kindWrap.appendChild(moveButton);
 
     const slideLis = slider.querySelectorAll('.k_list > *');
     const liWidth = document.body.offsetWidth;    
@@ -45,7 +45,8 @@ const kSlider = function(target, option) {
 
     let moveDist = -liWidth;
     let currentNum = 1;
-    let speedTime = OPTION.speed;
+    const speedTime = OPTION.speed;
+    const touchExcept = document.querySelector(`${OPTION.touchExcept}`);
 
     const cloneA = slideLis[0].cloneNode(true);
     const cloneC = slideLis[slideLis.length - 1].cloneNode(true);
@@ -92,6 +93,121 @@ const kSlider = function(target, option) {
         slider.style.left = `${moveDist}px`; 
       }
     }
+
+
+    //슬라이드 드래그 실행
+    const sliderDragItem = document.querySelector('.k_list');
+    const sliderDragContainer = document.querySelector('.k_list');
+    const dragLength = 50;
+    sliderDragMotion(sliderDragItem, sliderDragContainer);
+
+    //슬라이드 드래그
+    function sliderDragMotion(sliderDragItem, container){
+      const sliderDragItemEl = sliderDragItem;
+      const containerEl = container;
+      
+      let activeItem = null;
+      let active = 'false';
+      let xOffset, initialX, currentX;
+
+      sliderDragItemEl.addEventListener('touchstart', sliderDragStart, false);
+      sliderDragItemEl.addEventListener('touchend', sliderDragEnd, false);
+      
+      sliderDragItemEl.addEventListener('mousedown', sliderDragStart, true);
+      sliderDragItemEl.addEventListener('mouseup', sliderDragEnd, false);
+
+      //드래그 시작
+      function sliderDragStart(e) { 
+        
+        if(e.target.parentNode <= touchExcept){
+          return;
+        }
+        document.addEventListener('touchmove', sliderDrag, false);
+        document.addEventListener('mousemove', sliderDrag, false);
+
+        currentX = 0;
+        activeItem = containerEl;  
+        active = true;
+
+        if (e.target === sliderDragItemEl) {     
+          active = true;        
+        }
+        if (activeItem !== null) {
+          if (!xOffset) {
+            xOffset = 0;
+          }
+          if (e.type === 'touchstart') {
+            initialX = e.touches[0].clientX - xOffset;
+          } else {
+            initialX = e.pageX - xOffset;
+          }      
+        }    
+      }
+
+      //드래그 중
+      function sliderDrag(e) {
+        if (active) {
+          if (e.type === 'touchmove') {
+            currentX = e.touches[0].clientX - initialX;
+          } else {
+            currentX = e.pageX - initialX;
+          }     
+          setTranslate(activeItem, currentX);
+        }
+      }
+
+      //드래그 끝
+      function sliderDragEnd(e) {
+        
+        if (active) {
+          slider.style.transform = `translateX(0px)`;
+          if(Math.abs(currentX) > dragLength){
+            if(Math.sign(currentX) === -1){
+              move(-1);
+              if(currentNum === (slideCloneLis.length - 1)){
+                setTimeout(() => {
+                  slider.style.transition = 'none';
+                  moveDist = -liWidth;
+                  slider.style.left = `${-liWidth}px`;
+                  currentNum = 1;
+                }, speedTime);
+              } 
+            }else{
+              move(1);
+              if(currentNum === 0){  
+                setTimeout(() => {
+                  slider.style.transition = 'none';
+                  moveDist = -liWidth * (slideCloneLis.length - 2);
+                  slider.style.left = `${moveDist}px`;
+                  currentNum = slideCloneLis.length - 2;
+                }, speedTime);
+              } 
+            }
+          }       
+          sliderActiveOff();
+        }
+
+        function move(direction){        
+          currentNum += (-1 * direction)
+          moveDist += liWidth * direction;
+          slider.style.transition = `all ${speedTime}ms ease`;
+          slider.style.left = `${moveDist}px`; 
+        }
+      }
+
+      //드래그 컨테이너 크기 변경
+      function setTranslate(el, xMove) {
+        el.style.transform = `translateX(${xMove}px)`;
+      }
+
+      //드래그 활성화 끄기
+      function sliderActiveOff(){
+        active = false;
+
+        document.removeEventListener('touchmove', sliderDrag, false);
+        document.removeEventListener('mousemove', sliderDrag, false);
+      }
+    }
   }
 
   function setScreenWidth(el, liWidth){ 
@@ -105,4 +221,3 @@ const kSlider = function(target, option) {
     window.location.href=window.location.href;
   }, true);
 }
-

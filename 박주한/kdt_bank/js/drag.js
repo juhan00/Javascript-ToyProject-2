@@ -1,29 +1,36 @@
 //드래그
-function dragMotion(dragItem, container){
+function dragMotion(dragItem, container ,speed){
   const dragItemEl = dragItem;
   const containerEl = container;
+  
   const indiEl = document.querySelector(".status_bar");
   const headerEl = document.querySelector("header");
   const blankHeight = indiEl.clientHeight + headerEl.clientHeight;
-  
   const itemStartPosition = containerEl.offsetTop;
   const itemDrageHeight = itemStartPosition - blankHeight;
   const itemHeight = containerEl.clientHeight;
   const itemMaXHeight = window.innerHeight - blankHeight;
-  const speedTime = 300;
+  const dragSpeed = speed;
   let activeItem = null;
-  let active = false;
+  let active = 'false';
   let yOffset, initialY, currentY;
 
-  containerEl.addEventListener('touchstart', dragStart, false);
-  containerEl.addEventListener('touchend', dragEnd, false);
-  containerEl.addEventListener('touchmove', drag, false);
+  dragItemEl.addEventListener('touchstart', dragStart, false);
+  dragItemEl.addEventListener('touchend', dragEnd, false);
+  dragItemEl.addEventListener('mousedown', dragStart, true);
+  dragItemEl.addEventListener('mouseup', dragEnd, false);
+  
 
+  
   //드래그 시작
-  function dragStart(e) {
+  function dragStart(e) {   
+    document.addEventListener('touchmove', drag, false);
+    document.addEventListener('mousemove', drag, false);
+
     activeItem = containerEl;  
-    if (e.target === dragItemEl) {
-      active = true;    
+    active = true;
+    if (e.target === dragItemEl) {     
+      active = true;        
     }
     if (activeItem !== null) {
       if (!yOffset) {
@@ -32,20 +39,20 @@ function dragMotion(dragItem, container){
       if (e.type === 'touchstart') {
         initialY = e.touches[0].clientY - yOffset;
       } else {
-        initialY = e.clientY - yOffset;
-      }
-    }
+        initialY = e.pageY - yOffset;
+      }      
+    }    
   }
 
   //드래그 중
   function drag(e) {
     if (active) {
       if (e.type === 'touchmove') {
-        e.preventDefault();
         currentY = e.touches[0].clientY - initialY;
       } else {
-        currentY = e.clientY - initialY;
+        currentY = e.pageY - initialY;
       }
+
       if(currentY <= -itemDrageHeight){
         moveMotion(false);
         setTranslate(activeItem, 0 , 'open');
@@ -64,6 +71,7 @@ function dragMotion(dragItem, container){
 
   //드래그 끝
   function dragEnd(e) {
+    
     if (active) {
       if(currentY > -(itemDrageHeight/2)){
         yOffset = 0;
@@ -74,7 +82,7 @@ function dragMotion(dragItem, container){
           yOffset = -250;
           moveMotion(true);
           setTranslate(activeItem, 0 , 'open'); 
-        }   
+        }
       }
       activeOff();
     }
@@ -96,12 +104,14 @@ function dragMotion(dragItem, container){
   //드래그 활성화 끄기
   function activeOff(){
     active = false;
+    document.removeEventListener('touchmove', drag, false);
+    document.removeEventListener('mousemove', drag, false);
   }
 
   //드래그 모션 설정
   function moveMotion(use){
     if(use === true){
-      activeItem.style.transition = `all ${speedTime}ms ease`;
+      activeItem.style.transition = `all ${dragSpeed}ms ease`;
     }else{
       activeItem.style.transition = 'none';  
     }

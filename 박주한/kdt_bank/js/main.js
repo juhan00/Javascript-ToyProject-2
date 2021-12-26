@@ -9,14 +9,18 @@ function startMain(accountsData){
   const homeSectionEl = homeEl.querySelector('section');
   const accountLength = accountsData.accounts.length;
 
-  //메인화면 계좌별 데이터 넣기
-  for(let i = 0; i < accountLength; i++){
-    const account = accountsData.accounts[i];
+  accountsData.accounts.forEach((el,index) => {
     //section 클론
-    if(i !== 0){
+    if(index !== 0){
       const cloneSection = homeSectionEl.cloneNode(true);
       homeEl.appendChild(cloneSection);
     }
+  });
+
+  //메인화면 계좌별 데이터 넣기
+  for(let i = 0; i < accountLength; i++){
+    const account = accountsData.accounts[i];
+
     //계좌 데이터 넣기 실행
     mainDataPush(account, i);
   }
@@ -24,7 +28,7 @@ function startMain(accountsData){
   //계좌 데이터 넣기
   function mainDataPush(account, index){ 
     // 상단 데이터   
-    const currentSectionEl = document.querySelector(`section:nth-child(${index+1})`);
+    const currentSectionEl = document.querySelector(`.home`).children[index];
     const accountNameEl = currentSectionEl.querySelector('header h3');
     const accountNumEl = currentSectionEl.querySelector('.account_info .info .num');
     const accountCashEl = currentSectionEl.querySelector('.account_info .info > .cash');
@@ -42,7 +46,7 @@ function startMain(accountsData){
     
     //히스토리 영역
     const historyEl = currentSectionEl.querySelector('.account_history');
-
+  
     //저금통 영역
     const saveItemAreaEl = currentSectionEl.querySelector('.save_list .scroll_area');
     const saveItemUlEl = document.createElement('ul');
@@ -50,7 +54,7 @@ function startMain(accountsData){
     const saveLists = account.saveList;
     saveLists.forEach(saveList => {
       const saveItemliEl = document.createElement('li');
-      saveItemUlEl.appendChild(saveItemliEl);     
+      saveItemUlEl.appendChild(saveItemliEl);      
       const saveItemHtml = 
       `
       <div class="save_item">
@@ -68,6 +72,7 @@ function startMain(accountsData){
     //recent 영역
     const recentUlEl = document.createElement('ul');
     recentUlEl.classList.add('recent');
+    recentUlEl.classList.add(`${index}`);
     historyEl.appendChild(recentUlEl);
     
     let reverseHistoryLists = getReverseHistory(account.accountHistory);
@@ -107,7 +112,7 @@ function startMain(accountsData){
     //드래그 실행
     const dragItem = currentSectionEl.querySelector('.drag_bar');
     const dragContainer = currentSectionEl.querySelector('.account_history');
-    dragMotion(dragItem, dragContainer);
+    dragMotion(dragItem, dragContainer, 300);
   }
 
   //콤마 추가
@@ -210,8 +215,9 @@ function startMain(accountsData){
 window.onload = (function(){
   return () => {
     kSlider('.home', {
-      speed:500
-    });   
+      speed:500,
+      touchExcept:'.save_list'
+    }); 
   }
 })();
 
