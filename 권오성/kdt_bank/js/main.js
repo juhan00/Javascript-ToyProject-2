@@ -9,7 +9,7 @@ dragEl.addEventListener('click', function () {
 
 
 // JSON 연동
-fetch('/accounts.json')
+fetch('https://05castle.github.io/team-study/accounts.json')
   .then(res => res.json())
   .then(accountData => {
     startJsonInput(accountData);
