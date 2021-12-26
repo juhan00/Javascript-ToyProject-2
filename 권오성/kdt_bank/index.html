@@ -10,14 +10,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="./css/main.css">
   <script defer src="./js/main.js"></script>
 </head>
 <body>
 
   <!-- 상단바 -->
-  <div class="indi">
-    <img src="./img/bg-bar.png" alt="">
+  <div class="top-bar">
+    <img src="./img/bg-bar.png" alt="상단 상태바">
   </div>
   
   <!-- 콘텐츠 화면 -->
@@ -28,22 +29,18 @@
       <header>
         <div class="avata">
           <a href="#none">
-            <img src="./img/avata.png" alt="">
+            <img src="./img/avata.png" alt="프로필 사진">
           </a>
         </div>
         <h3>생활비</h3>
-        <ul>
-          <li>
-            <a href="#none'">
-              <img src="./img/icon-scan.png" alt="">
+        <div class="header_btn">
+            <a href="#none" class="scan">
+              <img src="/img/icon-scan.png" alt="스캔">
             </a>
-          </li>
-          <li>
-            <a href="#none">
-              <img src="./img/icon-search.png" alt="">
+            <a href="#none" class="search">
+              <img src="/img/icon-search.png" alt="검색">
             </a>
-          </li>
-        </ul>
+        </div>
       </header>
 
       <!-- 계좌 정보 영역 -->
@@ -54,17 +51,17 @@
             <a href="">이체</a>
           </li>
           <li  class="cash">
-            1,240,000<span>원</span>
+            1,240,111<span>원</span>
           </li>
           <li>
             <div class="graph">
-              <div class="goal"></div>
+              <div class="use_cash"></div>
               <div class="bar">
                 <div class="bar_color"></div>
               </div>
             </div>
             <a href="#none">
-              <img src="./img/icon-chart.png" alt="">
+              <img src="./img/icon-chart.png" alt="차트">
             </a>
           </li>
           <li class="noti">
@@ -88,18 +85,6 @@
         <!-- 저금통 -->
         <div class="save_list">
           <ul class="save_item">
-            <!-- <li>
-              <div>
-                <p>여행가자!</p>
-                <span>842200원</span>
-              </div>
-            </li>
-            <li>
-             <div>
-                <p>냉장고사기</p>
-                <span>142200원</span>
-             </div>
-           </li> -->
           </ul>
           <a href="#none" class="create_save">
             <span class="material-icons">add_circle</span>
@@ -109,35 +94,7 @@
 
         <!-- 사용 내역 -->
         <ul class="recent">
-          <li>
-            <div class="recent_tit">
-              오늘 <span>127600원 지출</span>
-            </div>
-            <ul class="recent_list">
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-            </ul>
-          </li>
-          <li>
-            <div class="recent_tit">
-              어제 <span>71600원 지출</span>
-            </div>
-            <ul class="recent_list">
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-              <li>장소<span>금액</span></li>
-            </ul>
-          </li>
+
         </ul>
       </div>
 
@@ -149,20 +106,20 @@
     <ul>
       <li>
         <a href="javascript:void(0)">
-          <img src="./img/menu1.png" alt="">
+          <img src="./img/menu1.png" alt="홈">
         </a>
       </li>
       <li>
         <a href="javascript:void(0)">
-          <img src="./img/menu2.png" alt="">
+          <img src="./img/menu2.png" alt="메뉴2">
       </li>
       <li>
         <a href="javascript:void(0)">
-          <img src="./img/menu3.png" alt="">
+          <img src="./img/menu3.png" alt="메뉴3">
       </li>
       <li>
         <a href="javascript:void(0)">
-          <img src="./img/menu4.png" alt="">
+          <img src="./img/menu4.png" alt="etc">
       </li>
     </ul>
   </nav>

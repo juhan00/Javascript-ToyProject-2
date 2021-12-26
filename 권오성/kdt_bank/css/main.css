@@ -15,12 +15,11 @@ img {
   position: relative;
   padding-top: 44px;
   height: calc(100vh - 44px);
-  /* overflow: hidden; */
 }
 
 
 /* 상단바 */
-body>div:first-child {
+.top-bar {
   position: fixed;
   top: 0;
   height: 44px;
@@ -44,23 +43,27 @@ header h3 {
   font-weight: 500;
   margin: 0 auto;
 }
-header ul {
+header .header_btn {
   width: 66px;
-  display: flex;
-  align-content: center;
-}
-header ul li {
-}
-header ul li a {
-  width: 30px;
   height: 30px;
+  margin-right: 21px;
+  text-align: justify;
 }
 
+header .header_btn a {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: center;
+}
+header .header_btn a.search,
+header .header_btn a.search img {
+  float: right;
+}
 
 
 /* 계좌 정보 영역 */
 .account_status {
-  /* background-color: orange; */
   padding: 33px 48px 24px;
 }
 
@@ -77,8 +80,6 @@ header ul li a {
   font-size: 14px;
   padding: 10px 0;
 }
-.account_status .account_info li.num {
-}
 .account_status .account_info li.num a {
   position: absolute;
   right: 17px;
@@ -88,15 +89,15 @@ header ul li a {
   font-weight: 700;
 }
 .account_status .account_info li.cash span {
-  font-size: 14px;
+  font-size: 14px
 }
 .account_status .account_info li .graph {
   width: 202px; 
   height: 6px;
-  margin: auto 0;
+  margin: auto 10px;
   position: relative;
 }
-.account_status .account_info li .graph .goal {
+.account_status .account_info li .graph .use_cash {
   width: 4px;
   height: 17px;
   border: 2px solid #fff;
@@ -104,7 +105,7 @@ header ul li a {
   background-color: #FF5F00;
   position: absolute;
   left: calc(40% - 4px);
-  top: calc(-100%);
+  top: -8px;
 }
 .account_status .account_info li .graph .bar {
   width: 100%;
@@ -114,7 +115,6 @@ header ul li a {
   background-color: #C4C4C4;
 }
 .account_status .account_info li .graph .bar_color {
-  width: 40%;
   height: 6px;
   background-color: #FFDB4C;
 }
@@ -130,7 +130,7 @@ header ul li a {
   background-color: #F5F5F5;
   position: absolute;
   top: 353px;
-  bottom: 0;
+  bottom: 76px;
   border-radius: 30px 30px 0 0;
   display: flex;
   flex-direction: column;
@@ -179,15 +179,6 @@ header ul li a {
   line-height: 17px;
   height: 100%;
 }
-/* .account_history .save_list .save_item li:first-child div {
-  width: 60%;
-  background-color: #FF5F00;
-}
-.account_history .save_list .save_item li:nth-child(2) div {
-  width: 70%;
-  height: 100%;
-  background-color: #FEB700;
-} */
 .account_history .save_list .save_item li div p, 
 .account_history .save_list .save_item li div span {
   margin-left: 13px;
@@ -242,14 +233,17 @@ header ul li a {
 .recent>li .recent_list li span {
   float: right;
 }
+.recent>li .recent_list li span.income {
+  color: #FF5F00
+}
 
 
 /* 하단 버튼 영영 */
 nav {
-  width: 100%;
+  width: 100vw;
   position: fixed;
   bottom: 0;
-  background-color: #16C2B3;
+  background: linear-gradient(#00BDB2 60%, #C4E7B8 110%)
 }
 nav ul{
   height: 76px;
