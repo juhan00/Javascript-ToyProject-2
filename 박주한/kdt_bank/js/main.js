@@ -22,11 +22,11 @@ function startMain(accountsData){
     const account = accountsData.accounts[i];
 
     //계좌 데이터 넣기 실행
-    mainDataPush(account, i);
+    mainDataPush(account, i, accountLength);
   }
 
   //계좌 데이터 넣기
-  function mainDataPush(account, index){ 
+  function mainDataPush(account, index, accountLength){ 
     // 상단 데이터   
     const currentSectionEl = document.querySelector(`.home`).children[index];
     const accountNameEl = currentSectionEl.querySelector('header h3');
@@ -113,6 +113,15 @@ function startMain(accountsData){
     const dragItem = currentSectionEl.querySelector('.drag_bar');
     const dragContainer = currentSectionEl.querySelector('.account_history');
     dragMotion(dragItem, dragContainer, 300);
+    
+    //마지막턴에 슬라이더 실행
+    if(index === accountLength-1){
+      console.log('완료');
+      kSlider('.home', {
+        speed:500,
+        touchExcept:'.save_list'
+      }); 
+    }
   }
 
   //콤마 추가
@@ -210,22 +219,5 @@ function startMain(accountsData){
     }  
   }
 }
-
-//화면 로드 후 슬라이더 실행
-window.onload = (function(){
-  return () => {
-    kSlider('.home', {
-      speed:500,
-      touchExcept:'.save_list'
-    }); 
-  }
-})();
-
-
-
-
-
-
-
 
 

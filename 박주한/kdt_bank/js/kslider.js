@@ -28,7 +28,7 @@ const kSlider = function(target, option) {
     nextA.href = '';
     moveButton.appendChild(prevA);
     moveButton.appendChild(nextA);
-    // kindWrap.appendChild(moveButton);
+    kindWrap.appendChild(moveButton);
 
     const slideLis = slider.querySelectorAll('.k_list > *');
     const liWidth = document.body.offsetWidth;    
@@ -63,37 +63,43 @@ const kSlider = function(target, option) {
 
     function moveSlide(e){
       e.preventDefault();
-
       if(e.target.className === 'next'){ 
-        move(-1);
-        if(currentNum === (slideCloneLis.length - 1)){
-          setTimeout(() => {
-            slider.style.transition = 'none';
-            moveDist = -liWidth;
-            slider.style.left = `${-liWidth}px`;
-            currentNum = 1;
-          }, speedTime);
-        }
+        clickNext();
       }else{  
-        move(1);
-        if(currentNum === 0){  
-          setTimeout(() => {
-            slider.style.transition = 'none';
-            moveDist = -liWidth * (slideCloneLis.length - 2);
-            slider.style.left = `${moveDist}px`;
-            currentNum = slideCloneLis.length - 2;
-          }, speedTime);
-        } 
-      }
+        clickPrev();
+      }      
+    }
 
-      function move(direction){        
-        currentNum += (-1 * direction)
-        moveDist += liWidth * direction;
-        slider.style.transition = `all ${speedTime}ms ease`;
-        slider.style.left = `${moveDist}px`; 
+    function move(direction){        
+      currentNum += (-1 * direction)
+      moveDist += liWidth * direction;
+      slider.style.transition = `all ${speedTime}ms ease`;
+      slider.style.left = `${moveDist}px`; 
+    }
+
+    function clickNext(){
+      move(-1);
+      if(currentNum === (slideCloneLis.length - 1)){
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          moveDist = -liWidth;
+          slider.style.left = `${-liWidth}px`;
+          currentNum = 1;
+        }, speedTime);
       }
     }
 
+    function clickPrev(){
+      move(1);
+      if(currentNum === 0){  
+        setTimeout(() => {
+          slider.style.transition = 'none';
+          moveDist = -liWidth * (slideCloneLis.length - 2);
+          slider.style.left = `${moveDist}px`;
+          currentNum = slideCloneLis.length - 2;
+        }, speedTime);
+      } 
+    }
 
     //슬라이드 드래그 실행
     const sliderDragItem = document.querySelector('.k_list');
@@ -163,25 +169,9 @@ const kSlider = function(target, option) {
           slider.style.transform = `translateX(0px)`;
           if(Math.abs(currentX) > dragLength){
             if(Math.sign(currentX) === -1){
-              move(-1);
-              if(currentNum === (slideCloneLis.length - 1)){
-                setTimeout(() => {
-                  slider.style.transition = 'none';
-                  moveDist = -liWidth;
-                  slider.style.left = `${-liWidth}px`;
-                  currentNum = 1;
-                }, speedTime);
-              } 
+              clickNext();
             }else{
-              move(1);
-              if(currentNum === 0){  
-                setTimeout(() => {
-                  slider.style.transition = 'none';
-                  moveDist = -liWidth * (slideCloneLis.length - 2);
-                  slider.style.left = `${moveDist}px`;
-                  currentNum = slideCloneLis.length - 2;
-                }, speedTime);
-              } 
+              clickPrev();
             }
           }       
           sliderActiveOff();
