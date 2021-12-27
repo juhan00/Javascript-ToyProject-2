@@ -139,13 +139,10 @@ const kSlider = function(target, option) {
           active = true;        
         }
         if (activeItem !== null) {
-          if (!xOffset) {
-            xOffset = 0;
-          }
           if (e.type === 'touchstart') {
-            initialX = e.touches[0].clientX - xOffset;
+            initialX = e.touches[0].clientX;
           } else {
-            initialX = e.pageX - xOffset;
+            initialX = e.pageX;
           }      
         }    
       }

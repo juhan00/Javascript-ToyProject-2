@@ -116,7 +116,6 @@ function startMain(accountsData){
     
     //마지막턴에 슬라이더 실행
     if(index === accountLength-1){
-      console.log('완료');
       kSlider('.home', {
         speed:500,
         touchExcept:'.save_list'
