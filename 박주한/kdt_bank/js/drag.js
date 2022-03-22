@@ -6,12 +6,11 @@ function dragMotion(dragItem, container, speed) {
   const indiEl = document.querySelector(".status_bar");
   const headerEl = document.querySelector("header");
   const blankHeight = indiEl.clientHeight + headerEl.clientHeight;
-
   const itemStartPosition = containerEl.offsetTop;
   const itemDrageHeight = itemStartPosition - blankHeight;
-  const itemHeight = containerEl.clientHeight;
-
+  const itemHeight = window.innerHeight - 351;
   const itemMaXHeight = window.innerHeight - blankHeight;
+  let currentOpenStatus = "close";
 
   const dragSpeed = speed;
   let activeItem = null;
@@ -37,12 +36,14 @@ function dragMotion(dragItem, container, speed) {
       if (!yOffset) {
         yOffset = 0;
       }
+
       if (e.type === "touchstart") {
         initialY = e.touches[0].clientY - yOffset;
       } else {
         initialY = e.pageY - yOffset;
       }
     }
+    // console.log(active, yOffset, e.type, initialY);
   }
 
   //드래그 중
@@ -53,20 +54,9 @@ function dragMotion(dragItem, container, speed) {
       } else {
         currentY = e.pageY - initialY;
       }
-
-      if (currentY <= -itemDrageHeight) {
-        moveMotion(false);
-        setTranslate(activeItem, 0, "open");
-        return;
-      } else if (currentY === 0) {
-        moveMotion(false);
-        setTranslate(activeItem, 0, "close");
-        return;
-      } else if (currentY < 0) {
-        yOffset = currentY;
-        moveMotion(false);
-        setTranslate(activeItem, currentY);
-      }
+      yOffset = currentY;
+      moveMotion(false);
+      setTranslate(activeItem, currentY);
     }
   }
 
@@ -79,7 +69,7 @@ function dragMotion(dragItem, container, speed) {
         setTranslate(activeItem, 0, "close");
       } else {
         if (yOffset !== 0) {
-          yOffset = -250;
+          yOffset = 0;
           moveMotion(true);
           setTranslate(activeItem, 0, "open");
         }
@@ -90,15 +80,20 @@ function dragMotion(dragItem, container, speed) {
 
   //드래그 컨테이너 크기 변경
   function setTranslate(el, yMove, openStatus) {
-    console.log(itemHeight);
     if (openStatus === "open") {
       el.style.height = `${itemMaXHeight}px`;
       activeOff(el);
+      currentOpenStatus = "open";
     } else if (openStatus === "close") {
       el.style.height = `${itemHeight}px`;
       activeOff(el);
+      currentOpenStatus = "close";
     } else {
-      el.style.height = `${itemHeight - yMove}px`;
+      if (currentOpenStatus === "open") {
+        el.style.height = `${itemMaXHeight - yMove}px`;
+      } else {
+        el.style.height = `${itemHeight - yMove}px`;
+      }
     }
   }
 
